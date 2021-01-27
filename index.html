@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satkhira Bank</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div id="login_area">
+        <h1 class="text-center">welcome to Satkhira bank</h1>
+        <div class="submit_area">
+            <h4>login</h4>
+            <input type="text" class="form-control"  placeholder="email">
+            <br>
+            <input type="password" class="form-control"  placeholder="password">
+            <br>
+            <button id="login" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+    <div id="transection_area">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="current_deposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$<span id="withdraw_amount">00</span></h2>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$<span id="current_balance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit_area">
+                <h4>Deposit</h4>
+                <br>
+                <input id="deposit_amount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                <br>
+                <button id="add_deposit" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit_area">
+                <h4>Withdraw</h4>
+                <br>
+                <input id="withdrawamount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                <br>
+                <button id="addwithdraw" class="btn btn-success">withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // login buttton handler
+        const loginbtn=document.getElementById("login");
+        loginbtn.addEventListener("click",function(){
+            const loginarea=document.getElementById("login_area");
+            loginarea.style.display="none";
+            const transectionarea=document.getElementById("transection_area")
+            transectionarea.style.display="block";
+        })
+        // deposit handler
+
+        const depositbtn=document.getElementById("add_deposit");
+        depositbtn.addEventListener("click",function(){
+            const depositnumber=getInputNumber("deposit_amount")
+            // const depositamount=document.getElementById("deposit_amount").value;
+            // const depositnumber=parseFloat(depositamount);
+
+            // const currentdeposit=document.getElementById("current_deposit").innerText;
+            // const currentdepositnumber=parseFloat(currentdeposit);
+            // const totaldeposit=depositnumber+currentdepositnumber;
+            // document.getElementById("current_deposit").innerText=totaldeposit;
+             document.getElementById("deposit_amount").value="";
+
+          updateSpanText("current_deposit",depositnumber) 
+          updateSpanText("current_balance",depositnumber);  
+            
+
+
+        })
+         // withdraw amount handler
+         const withdrawbtn=document.getElementById("addwithdraw");
+         withdrawbtn.addEventListener("click",function(){
+             const withdrawnumber=getInputNumber("withdrawamount");
+             console.log(withdrawnumber);
+
+             updateSpanText("withdraw_amount",withdrawnumber);
+
+             updateSpanText("current_balance",-1*withdrawnumber);
+         })
+         function getInputNumber(id){
+            const withdrawamount=document.getElementById(id).value;
+             const withdrawnumber=parseFloat(withdrawamount);
+             return withdrawnumber;
+         }
+        function updateSpanText(id,depositnumber){
+            const currentbalance=document.getElementById(id).innerText;
+            const currentnumber=parseFloat(currentbalance);
+            const total=currentnumber+depositnumber;
+            document.getElementById(id).innerText=total;
+        }
+    </script>
+</body>
+</html>
